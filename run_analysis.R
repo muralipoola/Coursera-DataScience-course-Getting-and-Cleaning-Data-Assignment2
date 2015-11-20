@@ -71,7 +71,7 @@ names(mergedLabels) <- 'activity'
 #############################################################################################
 #Goal #4 Appropriately labels the data set with descriptive variable names. 
 #############################################################################################
-
+cat('\n\n Appropriately labeling the dataset with descriptive names')
 names(mergedSubjects) <- 'subject'
 names(mergedSet) <- featuresList[meanStdIndices]
 names(mergedSet) <- gsub('\\(\\)','', names(mergedSet))
@@ -83,6 +83,9 @@ names(mergedSet) <- gsub('\\(\\)','', names(mergedSet))
 #############################################################################################
 
 tidySet <- cbind(mergedSubjects, mergedLabels, mergedSet)
+cat('\n\nCalculating average for each variable for each activity and subject')
 
 mean_result <- tidySet %>% group_by(subject, activity) %>% summarise_each(funs(mean))
+
+cat('\nSaving data to \'run_analysis.txt\' file')
 write.table(mean_result,"./run_analysis.txt",sep=" ",row.name=FALSE) 
